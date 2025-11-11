@@ -1,0 +1,13 @@
+{
+  "name": "html5",
+  "version": "1.0.0",
+  "description": "Simple survey static page",
+  "main": "WEB.HTML",
+  "scripts": {
+    "start": "http-server . -p 3000"
+  },
+  "dependencies": {
+    "http-server": "^0.12.3"
+  },
+  "license": "MIT"
+}
