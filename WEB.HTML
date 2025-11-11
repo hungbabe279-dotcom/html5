@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Survey</title>
+  <style>
+  :root{ --teal:#007b78; --muted:#666; --max-width:760px }
+  *{box-sizing:border-box}
+  body{ font-family: 'Montserrat', Arial, sans-serif; background:#fff; color:#123; padding:28px }
+  .page{ max-width:var(--max-width); margin:0 auto }
+  .header{ margin-bottom:8px }
+  .logo{ display:block }
+  h1{ color:var(--teal); margin:6px 0 6px 0; font-size:32px }
+  .intro{ color:var(--muted); margin-top:0; margin-bottom:18px }
+  .survey{ padding-left:6px }
+  .panel{ margin:18px 0 }
+  .panel h2{ color:var(--teal); margin:0 0 10px 0; font-size:20px }
+  .question{ color:var(--teal); margin:0 0 8px 0; font-size:20px }
+  .field{ display:flex; align-items:center; margin:8px 0 }
+  .label-text{ width:140px; font-weight:700; padding-right:8px }
+  .field input[type="text"], .field input[type="email"], .field input[type="date"]{ flex:1; max-width:420px; padding:8px 10px; border:1px solid #bfc9c9; border-radius:3px; background:#fff }
+  .error{ color:#b20000; font-size:0.95rem; margin-left:140px; display:block; min-height:1.1em; margin-top:4px }
+  .custom-control{ position:relative; display:inline-flex; align-items:center; margin-right:18px; cursor:pointer; color:#074; user-select:none; font-size:15px }
+  .custom-control input{ position:absolute; opacity:0; left:0; top:50%; transform:translateY(-50%); width:18px; height:18px; margin:0 }
+  .custom-control .control-label{ padding-left:26px; position:relative; line-height:1 }
+  .custom-control .control-label::before{ content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:16px; height:16px; border:2px solid #5a5a5a; border-radius:3px; background:#fff }
+  .custom-control input[type="radio"] + .control-label::before{ border-radius:50% }
+  .custom-control input:checked + .control-label::before{ background:var(--teal); border-color:var(--teal) }
+  .custom-control.checkbox input:checked + .control-label::after{ content:''; position:absolute; left:5px; top:50%; transform:translateY(-50%) rotate(45deg); width:5px; height:9px; border:solid #fff; border-width:0 2px 2px 0 }
+  .radios, .checkboxes{ margin:8px 0 0 0 }
+  .contact{ margin-top:12px; color:var(--muted) }
+  .contact select{ margin-left:8px; padding:6px; border-radius:3px }
+  .actions{ margin-top:18px }
+  .btn{ background:#eee; border:1px solid #bbb; padding:8px 14px; border-radius:4px; cursor:pointer }
+  @media (max-width:560px){ .label-text{ width:120px } .field{ flex-direction:column; align-items:flex-start } .label-text{ margin-bottom:6px } .field input{ width:100% } .error{ margin-left:0 } }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main class="page">
+    <header class="header">
+      <!-- replace inline SVG with the provided image file -->
+      <img src="logo-murach.jpg" alt="Murach logo" class="logo" width="80" height="60">
+    </header>
+
+    <form class="survey" action="#" method="post" novalidate>
+      <h1>Survey</h1>
+      <p class="intro">If you have a moment, we'd appreciate it if you would fill out this survey.</p>
+
+      <section class="panel">
+        <h2>Your information:</h2>
+
+        <label class="field"><span class="label-text">First Name</span>
+          <input type="text" name="firstName" id="firstName" autocomplete="given-name" required aria-describedby="firstNameError">
+        </label>
+        <span class="error" id="firstNameError" aria-live="polite"></span>
+
+        <label class="field"><span class="label-text">Last Name</span>
+          <input type="text" name="lastName" id="lastName" autocomplete="family-name" required aria-describedby="lastNameError">
+        </label>
+        <span class="error" id="lastNameError" aria-live="polite"></span>
+
+        <label class="field"><span class="label-text">Email</span>
+          <input type="email" name="email" id="email" autocomplete="email" required aria-describedby="emailError">
+        </label>
+        <span class="error" id="emailError" aria-live="polite"></span>
+
+        <label class="field"><span class="label-text">Date of Birth</span>
+          <input type="date" name="dob" id="dob">
+        </label>
+      </section>
+
+      <section class="panel">
+        <h3 class="question">How did you hear about us?</h3>
+        <div class="radios">
+          <label class="custom-control"><input type="radio" name="hear" value="search" checked><span class="control-label">Search engine</span></label>
+          <label class="custom-control"><input type="radio" name="hear" value="word"><span class="control-label">Word of mouth</span></label>
+          <label class="custom-control"><input type="radio" name="hear" value="social"><span class="control-label">Social Media</span></label>
+          <label class="custom-control"><input type="radio" name="hear" value="other"><span class="control-label">Other</span></label>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h3 class="question">Would you like to receive announcements about new CDs and special offers?</h3>
+        <div class="checkboxes">
+          <label class="custom-control checkbox"><input type="checkbox" name="opt1"><span class="control-label">YES, I'd like that.</span></label>
+          <label class="custom-control checkbox"><input type="checkbox" name="opt2"><span class="control-label">YES, please send me email announcements.</span></label>
+        </div>
+
+        <p class="contact">Please contact me by:
+          <select name="contactBy" id="contactBy">
+            <option value="email-postal">Email or postal mail</option>
+            <option value="email-only">Email only</option>
+            <option value="postal-only">Postal mail only</option>
+          </select>
+        </p>
+      </section>
+
+      <div class="actions">
+        <button type="submit" class="btn">Submit</button>
+      </div>
+    </form>
+  </main>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector(".survey");
+    if (!form) return;
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      let valid = true;
+
+      function setError(id, msg) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = msg || "";
+        if (msg) valid = false;
+      }
+
+      setError("firstNameError", "");
+      setError("lastNameError", "");
+      setError("emailError", "");
+
+      const first = (form.firstName && form.firstName.value || "").trim();
+      const last = (form.lastName && form.lastName.value || "").trim();
+      const email = (form.email && form.email.value || "").trim();
+
+      if (!first) setError("firstNameError", "Please enter your first name.");
+      if (!last) setError("lastNameError", "Please enter your last name.");
+
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email) setError("emailError", "Please enter your email.");
+      else if (!emailRe.test(email)) setError("emailError", "Please enter a valid email address.");
+
+      if (valid) {
+        alert("Form looks good! (demo) — form not sent in demo mode.");
+        form.reset();
+      } else {
+        const firstError = document.querySelector('.error:not(:empty)');
+        if (firstError) {
+          const id = firstError.id.replace('Error', '');
+          const input = form.querySelector('[name="' + id + '"]');
+          if (input) input.focus();
+        }
+      }
+    });
+  });
+  </script>
+</body>
+</html>
