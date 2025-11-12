@@ -33,6 +33,14 @@
   .contact select{ margin-left:8px; padding:6px; border-radius:3px }
   .actions{ margin-top:18px }
   .btn{ background:#eee; border:1px solid #bbb; padding:8px 14px; border-radius:4px; cursor:pointer }
+  .thank-you-section{ display:none; text-align:center; padding:40px 20px; animation:fadeIn 0.5s ease-in }
+  .thank-you-section.show{ display:block }
+  .thank-you-icon{ font-size:60px; margin-bottom:20px }
+  .thank-you-section h2{ color:var(--teal); font-size:28px; margin:0 0 15px 0 }
+  .thank-you-section p{ color:var(--muted); font-size:16px; line-height:1.6; margin:10px 0 }
+  .thank-you-section .btn-restart{ background:var(--teal); color:#fff; padding:12px 24px; margin-top:20px; border:none; border-radius:4px; cursor:pointer; font-weight:700 }
+  .thank-you-section .btn-restart:hover{ background:#005a57 }
+  @keyframes fadeIn{ from{ opacity:0; transform:translateY(10px) } to{ opacity:1; transform:translateY(0) } }
   @media (max-width:560px){ .label-text{ width:120px } .field{ flex-direction:column; align-items:flex-start } .label-text{ margin-bottom:6px } .field input{ width:100% } .error{ margin-left:0 } }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -101,11 +109,20 @@
         <button type="submit" class="btn">Submit</button>
       </div>
     </form>
+
+    <div class="thank-you-section" id="thankYouSection">
+      <div class="thank-you-icon">✓</div>
+      <h2>Cảm ơn bạn!</h2>
+      <p>Chúng tôi đã nhận được khảo sát của bạn.</p>
+      <p>Thông tin của bạn rất quý báu với chúng tôi.</p>
+      <button class="btn-restart" onclick="location.reload()">Điền Khảo Sát Mới</button>
+    </div>
   </main>
 
   <script>
   document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector(".survey");
+    const thankYouSection = document.getElementById("thankYouSection");
     if (!form) return;
 
     form.addEventListener("submit", function (e) {
@@ -126,16 +143,16 @@
       const last = (form.lastName && form.lastName.value || "").trim();
       const email = (form.email && form.email.value || "").trim();
 
-      if (!first) setError("firstNameError", "Please enter your first name.");
-      if (!last) setError("lastNameError", "Please enter your last name.");
+      if (!first) setError("firstNameError", "Vui lòng nhập tên của bạn.");
+      if (!last) setError("lastNameError", "Vui lòng nhập họ của bạn.");
 
       const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!email) setError("emailError", "Please enter your email.");
-      else if (!emailRe.test(email)) setError("emailError", "Please enter a valid email address.");
+      if (!email) setError("emailError", "Vui lòng nhập email của bạn.");
+      else if (!emailRe.test(email)) setError("emailError", "Vui lòng nhập email hợp lệ.");
 
       if (valid) {
-        alert("Form looks good! (demo) — form not sent in demo mode.");
-        form.reset();
+        form.style.display = "none";
+        thankYouSection.classList.add("show");
       } else {
         const firstError = document.querySelector('.error:not(:empty)');
         if (firstError) {
