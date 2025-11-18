@@ -1,0 +1,298 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Email List App Demo</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box }
+    body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px }
+    .container { max-width: 900px; margin: 0 auto }
+    header { background: teal; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; margin-bottom: 0 }
+    header h1 { margin-bottom: 5px }
+    .nav-tabs { display: flex; background: white; border-bottom: 2px solid teal }
+    .nav-tabs button { flex: 1; padding: 15px; border: none; background: white; cursor: pointer; font-size: 14px; font-weight: bold; color: #666; border-bottom: 3px solid transparent; transition: all 0.3s }
+    .nav-tabs button:hover { background: #f5f5f5 }
+    .nav-tabs button.active { color: teal; border-bottom-color: teal }
+    .content { background: white; padding: 30px; border-radius: 0 0 8px 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2) }
+    .tab-content { display: none }
+    .tab-content.active { display: block }
+    label { display: block; margin: 15px 0 5px 0; font-weight: bold; color: #333 }
+    input[type="text"], input[type="email"], select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px }
+    input[type="radio"] { margin-right: 8px }
+    .radio-group label { display: inline-block; margin-right: 20px; margin-top: 0; font-weight: normal }
+    .contact-options { margin-left: 20px; margin-top: 10px; padding: 15px; background: #f9f9f9; border-left: 3px solid teal; display: none }
+    .contact-options label { display: inline-block; margin-right: 20px }
+    .error { color: #d32f2f; margin-top: 5px; font-size: 12px }
+    button { padding: 12px 24px; margin: 5px 5px 5px 0; background: teal; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px }
+    button:hover { background: #008080 }
+    .success { background: #4caf50; color: white; padding: 15px; border-radius: 4px; margin-top: 20px; display: none }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px }
+    td { border: 1px solid #ddd; padding: 12px; text-align: left }
+    td:first-child { font-weight: bold; background: #f5f5f5 }
+    footer { background: white; text-align: center; color: #999; font-size: 12px; padding: 15px; margin-top: 20px }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📧 Email List & Survey App</h1>
+      <p>Exercise 6-1 & 6-2 Demo - Servlet, JSP, JSTL, and EL Features</p>
+    </header>
+
+    <div class="nav-tabs">
+      <button class="tab-btn active" data-tab="email">Email List (Exercise 6-1)</button>
+      <button class="tab-btn" data-tab="survey">Survey (Exercise 6-2)</button>
+      <button class="tab-btn" data-tab="info">Features & Info</button>
+    </div>
+
+    <div class="content">
+      <!-- Email List Tab -->
+      <div class="tab-content active" id="email">
+        <h2>Join Our Mailing List</h2>
+        <p style="color: #666; margin-bottom: 20px">Enter your details to subscribe to our mailing list.</p>
+        
+        <form id="emailForm">
+          <label for="email-firstName">First Name:</label>
+          <input type="text" id="email-firstName" name="firstName" required>
+          <div class="error" id="emailErr-firstName"></div>
+
+          <label for="email-lastName">Last Name:</label>
+          <input type="text" id="email-lastName" name="lastName" required>
+          <div class="error" id="emailErr-lastName"></div>
+
+          <label for="email-email">Email:</label>
+          <input type="email" id="email-email" name="email" required>
+          <div class="error" id="emailErr-email"></div>
+
+          <button type="submit">Join Now</button>
+          <button type="reset">Clear</button>
+        </form>
+
+        <div class="success" id="emailSuccess">
+          <strong>✓ Thank you!</strong><br>
+          <p id="emailSuccessMsg" style="margin-top: 10px"></p>
+          <table>
+            <tr><td>Name:</td><td id="emailSuccessName"></td></tr>
+            <tr><td>Email:</td><td id="emailSuccessEmail"></td></tr>
+          </table>
+        </div>
+
+        <div style="background: #e3f2fd; padding: 15px; border-radius: 4px; margin-top: 20px; font-size: 13px">
+          <strong>📝 Features Demonstrated:</strong>
+          <ul style="margin-left: 20px; margin-top: 10px">
+            <li>Header/Footer includes via JSTL &lt;c:import&gt;</li>
+            <li>EL expression for current year: &lt;c:out value="${currentYear}" /&gt;</li>
+            <li>Form validation (client-side for demo)</li>
+            <li>Thank you page with submitted data</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Survey Tab -->
+      <div class="tab-content" id="survey">
+        <h2>Customer Survey</h2>
+        <p style="color: #666; margin-bottom: 20px">Help us improve by taking this quick survey.</p>
+        
+        <form id="surveyForm">
+          <label for="survey-firstName">First Name:</label>
+          <input type="text" id="survey-firstName" name="firstName" required>
+
+          <label for="survey-lastName">Last Name:</label>
+          <input type="text" id="survey-lastName" name="lastName" required>
+
+          <label for="survey-email">Email:</label>
+          <input type="email" id="survey-email" name="email" required>
+
+          <label for="survey-heardFrom">How did you hear from us?</label>
+          <select id="survey-heardFrom" name="heardFrom" required>
+            <option value="">-- Select --</option>
+            <option value="Search Engine">Search Engine</option>
+            <option value="Word of Mouth">Word of Mouth</option>
+            <option value="Social Media">Social Media</option>
+            <option value="Advertisement">Advertisement</option>
+            <option value="Other">Other</option>
+          </select>
+
+          <div class="radio-group" style="margin: 15px 0">
+            <label style="font-weight: bold">Would you like to receive updates?</label>
+            <label><input type="radio" name="updates" value="Yes" required onchange="toggleContactVia()"> Yes</label>
+            <label><input type="radio" name="updates" value="No" required onchange="toggleContactVia()"> No</label>
+          </div>
+
+          <div id="contactOptions" class="contact-options">
+            <label style="display: block; margin-bottom: 10px; font-weight: bold">How would you like to be contacted?</label>
+            <label><input type="radio" name="contactVia" value="Email"> Email</label>
+            <label><input type="radio" name="contactVia" value="Phone"> Phone</label>
+            <label><input type="radio" name="contactVia" value="SMS"> SMS</label>
+          </div>
+
+          <button type="submit" style="margin-top: 20px">Submit Survey</button>
+          <button type="reset">Clear</button>
+        </form>
+
+        <div class="success" id="surveySuccess">
+          <strong>✓ Thank you for taking our survey!</strong>
+          <p style="margin-top: 10px">Here is the information you entered:</p>
+          <table>
+            <tr><td>Email:</td><td id="surveySuccessEmail"></td></tr>
+            <tr><td>First Name:</td><td id="surveySuccessFirstName"></td></tr>
+            <tr><td>Last Name:</td><td id="surveySuccessLastName"></td></tr>
+            <tr><td>Heard From:</td><td id="surveySuccessHeardFrom"></td></tr>
+            <tr><td>Updates:</td><td id="surveySuccessUpdates"></td></tr>
+            <tr id="contactViaRow" style="display: none"><td>Contact Via:</td><td id="surveySuccessContactVia"></td></tr>
+          </table>
+        </div>
+
+        <div style="background: #e3f2fd; padding: 15px; border-radius: 4px; margin-top: 20px; font-size: 13px">
+          <strong>📝 Features Demonstrated:</strong>
+          <ul style="margin-left: 20px; margin-top: 10px">
+            <li>Dynamic field visibility: Contact Via shows only when Updates = "Yes"</li>
+            <li>JSTL &lt;c:if&gt; tag for conditional rendering in survey.jsp</li>
+            <li>User object with 6 properties (Exercise 6-2)</li>
+            <li>EL expressions to display data</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Info Tab -->
+      <div class="tab-content" id="info">
+        <h2>📚 About This Application</h2>
+        
+        <h3 style="margin-top: 20px; color: teal">Exercise 6-1: Modify JSPs with Header/Footer</h3>
+        <p>This exercise demonstrates:</p>
+        <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8">
+          <li><strong>JSTL import:</strong> Using &lt;c:import url="/includes/header.html" /&gt; for compile-time/runtime includes</li>
+          <li><strong>Footer with EL:</strong> Using EL to display dynamic year: &lt;c:out value="${currentYear}" /&gt;</li>
+          <li><strong>Servlet modification:</strong> EmailListServlet sets currentYear using Calendar.getInstance()</li>
+          <li><strong>Thank-you page:</strong> Displays submitted data and current year in footer</li>
+        </ul>
+
+        <h3 style="margin-top: 20px; color: teal">Exercise 6-2: Create Survey JSP</h3>
+        <p>This exercise demonstrates:</p>
+        <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8">
+          <li><strong>User class:</strong> Bean with 6 properties (email, firstName, lastName, heardFrom, updates, contactVia)</li>
+          <li><strong>SurveyServlet:</strong> Receives form data, creates User object, forwards to survey.jsp</li>
+          <li><strong>Conditional JSTL:</strong> &lt;c:if test="${user.updates == 'Yes'}"&gt; to show Contact Via only when needed</li>
+          <li><strong>EL rendering:</strong> Display User data using &lt;c:out value="${user.email}" /&gt;</li>
+        </ul>
+
+        <h3 style="margin-top: 20px; color: teal">📁 Project Structure</h3>
+        <pre style="background: #f5f5f5; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 12px">email-list/
+├── src/main/java/com/example/emaillist/
+│   ├── EmailListServlet.java      (handles email form)
+│   ├── SurveyServlet.java          (handles survey form)
+│   └── User.java                   (User bean)
+├── src/main/webapp/
+│   ├── includes/
+│   │   ├── header.html             (header template)
+│   │   └── footer.jsp              (footer with EL)
+│   ├── index.jsp                   (email form with JSTL includes)
+│   ├── thanks.jsp                  (email thanks page)
+│   ├── survey.jsp                  (survey results with JSTL if)
+│   └── survey-form.html            (survey form)
+└── pom.xml                         (Maven config with Servlet API, JSTL)</pre>
+
+        <div style="background: #fff3cd; padding: 15px; border-radius: 4px; margin-top: 20px">
+          <strong>🚀 How to Run:</strong>
+          <p style="margin-top: 10px">Option 1: Using Docker (recommended)</p>
+          <pre style="background: white; padding: 10px; border-radius: 4px; margin: 10px 0; font-size: 12px; overflow-x: auto">cd email-list
+.\run-email-list.ps1</pre>
+          
+          <p style="margin-top: 15px">Option 2: Using Maven</p>
+          <pre style="background: white; padding: 10px; border-radius: 4px; margin: 10px 0; font-size: 12px; overflow-x: auto">cd email-list
+mvn tomcat7:run</pre>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 Servlet & JSP Exercises (Chapter 6). All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const tab = this.dataset.tab;
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(tab).classList.add('active');
+        this.classList.add('active');
+      });
+    });
+
+    // Email List Form
+    document.getElementById('emailForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const firstName = document.getElementById('email-firstName').value.trim();
+      const lastName = document.getElementById('email-lastName').value.trim();
+      const email = document.getElementById('email-email').value.trim();
+      let valid = true;
+
+      // Reset errors
+      document.getElementById('emailErr-firstName').textContent = '';
+      document.getElementById('emailErr-lastName').textContent = '';
+      document.getElementById('emailErr-email').textContent = '';
+
+      if (!firstName) {
+        document.getElementById('emailErr-firstName').textContent = 'First name is required.';
+        valid = false;
+      }
+      if (!lastName) {
+        document.getElementById('emailErr-lastName').textContent = 'Last name is required.';
+        valid = false;
+      }
+      if (!email) {
+        document.getElementById('emailErr-email').textContent = 'Email is required.';
+        valid = false;
+      } else if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+        document.getElementById('emailErr-email').textContent = 'Please enter a valid email address.';
+        valid = false;
+      }
+
+      if (valid) {
+        document.getElementById('emailSuccessName').textContent = firstName + ' ' + lastName;
+        document.getElementById('emailSuccessEmail').textContent = email;
+        document.getElementById('emailSuccess').style.display = 'block';
+        const year = new Date().getFullYear();
+        document.getElementById('emailSuccessMsg').textContent = `We added you to our list! Current year: ${year}`;
+      }
+    });
+
+    // Survey Form
+    function toggleContactVia() {
+      const updates = document.querySelector('input[name="updates"]:checked')?.value;
+      document.getElementById('contactOptions').style.display = updates === 'Yes' ? 'block' : 'none';
+    }
+
+    document.getElementById('surveyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const firstName = document.getElementById('survey-firstName').value;
+      const lastName = document.getElementById('survey-lastName').value;
+      const email = document.getElementById('survey-email').value;
+      const heardFrom = document.getElementById('survey-heardFrom').value;
+      const updates = document.querySelector('input[name="updates"]:checked').value;
+      const contactVia = document.querySelector('input[name="contactVia"]:checked')?.value || '';
+
+      document.getElementById('surveySuccessFirstName').textContent = firstName;
+      document.getElementById('surveySuccessLastName').textContent = lastName;
+      document.getElementById('surveySuccessEmail').textContent = email;
+      document.getElementById('surveySuccessHeardFrom').textContent = heardFrom;
+      document.getElementById('surveySuccessUpdates').textContent = updates;
+
+      // Show Contact Via only if updates = Yes (mimics JSTL <c:if>)
+      if (updates === 'Yes') {
+        document.getElementById('contactViaRow').style.display = 'table-row';
+        document.getElementById('surveySuccessContactVia').textContent = contactVia;
+      } else {
+        document.getElementById('contactViaRow').style.display = 'none';
+      }
+
+      document.getElementById('surveySuccess').style.display = 'block';
+    });
+  </script>
+</body>
+</html>

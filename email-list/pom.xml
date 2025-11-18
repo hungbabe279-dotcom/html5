@@ -19,6 +19,22 @@
       <artifactId>jstl</artifactId>
       <version>1.2</version>
     </dependency>
+    <!-- Jetty for embedded server -->
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-server</artifactId>
+      <version>9.4.51.v20230217</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-webapp</artifactId>
+      <version>9.4.51.v20230217</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-jsp</artifactId>
+      <version>9.4.51.v20230217</version>
+    </dependency>
   </dependencies>
 
   <build>
