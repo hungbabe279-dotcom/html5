@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @WebServlet(name = "EmailListServlet", urlPatterns = {"/emailList"})
@@ -14,6 +15,10 @@ public class EmailListServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // Set current year for footer
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        req.setAttribute("currentYear", currentYear);
+
         String action = req.getParameter("action");
         if (action == null) action = "";
 

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
   String firstName = (String) request.getAttribute("firstName");
   String lastName = (String) request.getAttribute("lastName");
@@ -22,6 +23,8 @@
   </style>
 </head>
 <body>
+  <c:import url="/includes/header.html" />
+  
   <h1>Survey</h1>
   <form action="${pageContext.request.contextPath}/emailList" method="post">
     <label>First Name:
@@ -42,5 +45,7 @@
     <button type="submit" name="action" value="add">Join Now</button>
     <button type="submit" name="action" value="return">Return</button>
   </form>
+  
+  <c:import url="/includes/footer.jsp" />
 </body>
 </html>
