@@ -3,7 +3,7 @@ services:
     name: html5
     env: node
     buildCommand: npm install
-    startCommand: npx http-server email-list/src/main/webapp -p $PORT
+    startCommand: npx http-server . -p $PORT --cors
     plan: free
     healthCheckPath: /
     envVars:
