@@ -1,11 +1,10 @@
 services:
   - type: web
     name: html5
-    env: node
-    buildCommand: npm install
-    startCommand: npx http-server . -p $PORT --cors
+    env: docker
+    dockerfilePath: ./Dockerfile
     plan: free
     healthCheckPath: /
     envVars:
       - key: PORT
-        value: 3000
+        value: 8080

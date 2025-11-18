@@ -1,17 +1,16 @@
-FROM node:18-alpine
-
-# set working directory
+# Multi-stage build for Java Servlet app
+# Stage 1: Build with Maven
+FROM maven:3.8-openjdk-8 AS builder
 WORKDIR /app
+COPY email-list/pom.xml ./pom.xml
+COPY email-list/src ./src
+RUN mvn clean package -DskipTests -q
 
-# copy package.json and install dependencies
-COPY package.json .
-RUN npm install --production=false
-
-# copy application source
-COPY . .
-
-# expose port (adjust if your app uses a different port)
-EXPOSE 3000
-
+# Stage 2: Run on Tomcat
+FROM tomcat:9-jre8
+RUN rm -rf /usr/local/tomcat/webapps/ROOT
+COPY --from=builder /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
+EXPOSE 8080
+CMD ["catalina.sh", "run"]
 # start command
 CMD ["npm", "start"]
