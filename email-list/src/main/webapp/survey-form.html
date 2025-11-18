@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Customer Survey</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5 }
+    .container { max-width: 500px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1) }
+    h1 { color: teal; text-align: center }
+    label { display: block; margin: 15px 0 5px 0; font-weight: bold; color: #333 }
+    input[type="text"], input[type="email"], select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box }
+    input[type="radio"], input[type="checkbox"] { margin-right: 8px }
+    .radio-group, .checkbox-group { margin: 15px 0 }
+    .radio-group label, .checkbox-group label { display: inline-block; margin-right: 15px; margin-top: 0 }
+    .contact-options { margin-left: 20px; margin-top: 10px; padding: 10px; background: #f9f9f9; border-left: 3px solid teal }
+    .contact-options label { display: inline-block; margin-right: 15px }
+    button { padding: 10px 20px; margin: 5px; background: teal; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px }
+    button:hover { background: #008080 }
+    .button-group { text-align: center; margin-top: 20px }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Customer Survey</h1>
+    <form action="/survey" method="post">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" name="firstName" required>
+
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" name="lastName" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="heardFrom">How did you hear from us?</label>
+      <select id="heardFrom" name="heardFrom" required>
+        <option value="">-- Select an option --</option>
+        <option value="search engine">Search Engine</option>
+        <option value="word of mouth">Word of Mouth</option>
+        <option value="social media">Social Media</option>
+        <option value="advertisement">Advertisement</option>
+        <option value="other">Other</option>
+      </select>
+
+      <div class="radio-group">
+        <label>Would you like to receive updates?</label>
+        <label><input type="radio" name="updates" value="Yes" required> Yes</label>
+        <label><input type="radio" name="updates" value="No" required> No</label>
+      </div>
+
+      <div id="contactOptions" class="contact-options" style="display: none;">
+        <label>How would you like to be contacted?</label>
+        <label><input type="radio" name="contactVia" value="Email"> Email</label>
+        <label><input type="radio" name="contactVia" value="Phone"> Phone</label>
+        <label><input type="radio" name="contactVia" value="SMS"> SMS</label>
+      </div>
+
+      <div class="button-group">
+        <button type="submit">Submit</button>
+        <button type="reset">Clear</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Show/hide contact options based on updates selection
+    document.querySelectorAll('input[name="updates"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        document.getElementById('contactOptions').style.display = this.value === 'Yes' ? 'block' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
